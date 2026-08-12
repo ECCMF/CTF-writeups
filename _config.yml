@@ -1,7 +1,5 @@
 title: CTF Writeups
 description: Learning and posting write ups for challenges I encounter while learning stuff.
-baseurl: "/CTF-writeups"
-url: "https://eccmf.github.io/CTF-writeups/"
 markdown: kramdown
 plugins:
   - jekyll-relative-links
