@@ -1,3 +1,8 @@
+title: CTF Writeups
+description: Learning and posting write ups for challenges I encounter while learning stuff.
+baseurl: "/CTF-writeups"
+url: "https://eccmf.github.io/CTF-writeups/"
+markdown: kramdown
 plugins:
   - jekyll-relative-links
   - jekyll-remote-theme
@@ -5,6 +10,5 @@ relative_links:
   enabled: true
   collections: true
 remote_theme: pages-themes/hacker@v0.2.0
-include:
+exclude:
   - README.md
-  - /TryHackMe/ironHold/writeup.md
