@@ -6,6 +6,11 @@
   },
   {
     "site": "TryHackMe",
+    "label": "bounty_hunter",
+    "path": "TryHackMe/bounty_hunter/writeup.md"
+  },
+  {
+    "site": "TryHackMe",
     "label": "brooklyn99",
     "path": "TryHackMe/brooklyn99/writeup.md"
   },
