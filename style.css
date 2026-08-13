@@ -1,0 +1,339 @@
+/*
+ * Pure-CSS adaptation of the GitHub Pages "Hacker" theme
+ * for the static Markdown menu/viewer.
+ */
+
+:root {
+  --background: #151515;
+  --foreground: #eaeaea;
+  --green: #b5e853;
+  --blue: #63c0f5;
+  --muted: #aaa;
+  --dim: #666;
+  --border: rgba(255, 255, 255, 0.15);
+  --code-background: rgba(0, 0, 0, 0.9);
+  --max-width: 1000px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  padding: 0 0 60px;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 4px 4px;
+  color: var(--foreground);
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console",
+    "Lucida Sans Typewriter", Terminal, monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+
+header {
+  width: 100%;
+  margin: 0 0 36px;
+  padding: 20px 5%;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px dashed var(--green);
+}
+
+header h1 {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  color: var(--green);
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: -1px;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 0 5px rgba(181, 232, 83, 0.1),
+    0 0 10px rgba(181, 232, 83, 0.1);
+}
+
+header h1::before {
+  content: "./ ";
+  font-size: 24px;
+}
+
+/* Shared page width */
+
+nav,
+main {
+  width: 90%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Navigation */
+
+nav {
+  margin-bottom: 34px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--green);
+}
+
+nav h2 {
+  margin-bottom: 12px;
+}
+
+#menu {
+  padding-left: 2px;
+}
+
+details {
+  margin: 8px 0;
+}
+
+summary {
+  width: fit-content;
+  color: var(--green);
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(181, 232, 83, 0.25);
+}
+
+summary:hover {
+  text-decoration: underline;
+}
+
+details ul {
+  margin: 6px 0 12px 20px;
+  padding-left: 18px;
+}
+
+details li {
+  margin: 3px 0;
+}
+
+/* Main Markdown content */
+
+main {
+  -webkit-font-smoothing: antialiased;
+}
+
+article {
+  width: 100%;
+}
+
+article img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 20px;
+  color: var(--green);
+  font-family: inherit;
+  font-weight: normal;
+  letter-spacing: -0.03em;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 0 5px rgba(181, 232, 83, 0.1),
+    0 0 10px rgba(181, 232, 83, 0.1);
+}
+
+article h1 {
+  font-size: 30px;
+}
+
+article h2 {
+  font-size: 24px;
+}
+
+article h3 {
+  font-size: 18px;
+}
+
+article h4 {
+  font-size: 14px;
+}
+
+article h5 {
+  margin-bottom: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+article h6 {
+  margin-bottom: 5px;
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0 0 20px;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+li {
+  line-height: 1.4;
+}
+
+dt {
+  font-style: italic;
+  font-weight: bold;
+}
+
+blockquote {
+  margin-left: 0;
+  padding-left: 10px;
+  color: var(--muted);
+  border-left: 1px dotted var(--dim);
+}
+
+/* Links */
+
+a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+}
+
+a:hover,
+a:focus {
+  color: #9bd7fa;
+}
+
+/* Code */
+
+pre {
+  margin: 0 0 20px;
+  padding: 10px;
+  overflow: auto;
+  overflow-y: hidden;
+  background: var(--code-background);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--green);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.45;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: inherit;
+}
+
+:not(pre) > code {
+  padding: 1px 4px;
+  background: var(--code-background);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: #aa759f;
+  font-family: inherit;
+}
+
+/* Tables */
+
+table {
+  width: 100%;
+  margin: 0 0 20px;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 5px 10px;
+  text-align: left;
+  border-bottom: 1px dashed var(--green);
+}
+
+td {
+  padding: 5px 10px;
+  vertical-align: top;
+}
+
+tbody tr:hover {
+  background: rgba(181, 232, 83, 0.04);
+}
+
+/* Rules and small elements */
+
+hr {
+  height: 0;
+  margin: 30px 0;
+  border: 0;
+  border-bottom: 1px dashed var(--green);
+  color: var(--green);
+}
+
+kbd {
+  padding: 1px 5px;
+  background: #222;
+  border: 1px solid #555;
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  color: var(--foreground);
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--background);
+}
+
+/* Small screens */
+
+@media (max-width: 700px) {
+  body {
+    font-size: 15px;
+  }
+
+  header {
+    margin-bottom: 26px;
+  }
+
+  header h1 {
+    font-size: 25px;
+  }
+
+  header h1::before {
+    font-size: 20px;
+  }
+
+  nav {
+    margin-bottom: 26px;
+  }
+
+  article h1 {
+    font-size: 26px;
+  }
+
+  article h2 {
+    font-size: 21px;
+  }
+
+  pre {
+    font-size: 14px;
+  }
+}
