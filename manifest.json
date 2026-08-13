@@ -1,0 +1,12 @@
+[
+  {
+    "site": "TryHackMe",
+    "label": "dx2_hells_kitchen",
+    "path": "TryHackMe/dx2_hells_kitchen/writeup.md"
+  },
+  {
+    "site": "TryHackMe",
+    "label": "ironHold",
+    "path": "TryHackMe/ironHold/writeup.md"
+  }
+]
