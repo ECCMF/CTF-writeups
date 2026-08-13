@@ -1,22 +1,22 @@
 [
   {
     "site": "TryHackMe",
-    "label": "Easy / bounty_hunter",
-    "path": "TryHackMe/Easy/bounty_hunter/writeup.md"
+    "label": "bounty_hunter",
+    "path": "TryHackMe/bounty_hunter/writeup.md"
   },
   {
     "site": "TryHackMe",
-    "label": "Easy / brooklyn99",
-    "path": "TryHackMe/Easy/brooklyn99/writeup.md"
+    "label": "brooklyn99",
+    "path": "TryHackMe/brooklyn99/writeup.md"
   },
   {
     "site": "TryHackMe",
-    "label": "Hard / dx2_hells_kitchen",
-    "path": "TryHackMe/Hard/dx2_hells_kitchen/writeup.md"
+    "label": "dx2_hells_kitchen",
+    "path": "TryHackMe/dx2_hells_kitchen/writeup.md"
   },
   {
     "site": "TryHackMe",
-    "label": "Hard / ironHold",
-    "path": "TryHackMe/Hard/ironHold/writeup.md"
+    "label": "ironHold",
+    "path": "TryHackMe/ironHold/writeup.md"
   }
 ]
