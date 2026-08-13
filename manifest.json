@@ -1,0 +1,22 @@
+[
+  {
+    "site": "HackTheBox",
+    "label": "fireflow",
+    "path": "HackTheBox/fireflow/writeup.md"
+  },
+  {
+    "site": "TryHackMe",
+    "label": "brooklyn99",
+    "path": "TryHackMe/brooklyn99/writeup.md"
+  },
+  {
+    "site": "TryHackMe",
+    "label": "dx2_hells_kitchen",
+    "path": "TryHackMe/dx2_hells_kitchen/writeup.md"
+  },
+  {
+    "site": "TryHackMe",
+    "label": "ironHold",
+    "path": "TryHackMe/ironHold/writeup.md"
+  }
+]
