@@ -1,8 +1,8 @@
 [
   {
-    "site": "HackTheBox",
-    "label": "fireflow",
-    "path": "HackTheBox/fireflow/writeup.md"
+    "site": "TryHackMe",
+    "label": "bounty_hunter",
+    "path": "TryHackMe/bounty_hunter/writeup.md"
   },
   {
     "site": "TryHackMe",
@@ -13,10 +13,5 @@
     "site": "TryHackMe",
     "label": "dx2_hells_kitchen",
     "path": "TryHackMe/dx2_hells_kitchen/writeup.md"
-  },
-  {
-    "site": "TryHackMe",
-    "label": "ironHold",
-    "path": "TryHackMe/ironHold/writeup.md"
   }
 ]
