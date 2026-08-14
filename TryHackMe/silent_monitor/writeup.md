@@ -1,6 +1,6 @@
 # Silent Monitor 
 ---
-(TryHackMe)[https://tryhackme.com/room/silent-monitor]
+[TryHackMe](https://tryhackme.com/room/silent-monitor)
 >|medium|linux|web|
 ---
 >Green Lights, Dark Corners
