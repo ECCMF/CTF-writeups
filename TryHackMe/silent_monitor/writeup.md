@@ -1,4 +1,8 @@
 # Silent Monitor 
+---
+(TryHackMe)[https://tryhackme.com/room/silent-monitor]
+>|medium|linux|web|
+---
 >Green Lights, Dark Corners
 CorpNet's internal network operations centre has been running quietly for years. Monitoring hosts, logging events, and keeping the infrastructure alive. Or so it seems. A tip from a disgruntled contractor suggests that someone on the NOC team has been cutting corners, leaving doors open, and hiding things in places no one thinks to look.
 >

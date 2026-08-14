@@ -1,4 +1,8 @@
 # Brooklyn 99
+---
+[TryHackMe](https://tryhackme.com/room/brooklynninenine)
+>|easy|linux|
+---
 > We are presented with an IP and tasks to find the user and root flags.
 
 ## Recon
