@@ -1,7 +1,7 @@
 # IronHold
 ---
 [TryHackMe](https://tryhackme.com/room/ironhold)
->|hard | linux | web |
+>|hard|linux|web|
 ----
 >IronHold is retiring its inmate-management platform. Somewhere in the handover, a developer pushed the complete repository to a public mirror and then left the company. Facility security wants a straight answer before the system goes dark for good: if that repository is out there, how far could someone actually get?
 >
