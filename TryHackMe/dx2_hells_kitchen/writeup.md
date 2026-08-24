@@ -2,6 +2,7 @@
 ---
 [TryHackMe](https://tryhackme.com/room/dx2hellskitchen)
 >|hard|linux|web|
+> will rewrite soon, there is a bit of a rush in work, this is a concept.
 ---
 >We need to recover the lost Ambrosia shipment from the NSF (National Secessionist Forces), the only treatment for the plague known as the Grey Death. However, we haven't located their main base of operations.
 >
