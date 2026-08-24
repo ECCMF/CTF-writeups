@@ -1,4 +1,8 @@
 # Wgel CTF
+---
+[TryHackMe](https://tryhackme.com/room/wgelctf)
+>|easy|linux|web|
+---
 Firstly, we scan the target:
 `nmap -sV -sC -A -T4 $IP -oN wgel.nmap`
 This reveals 2 open ports - 22 and 80.
