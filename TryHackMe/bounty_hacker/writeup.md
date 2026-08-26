@@ -9,7 +9,7 @@
 Firstly, we scan the target with nmap:
 ```bash
 IP=<TARGET_IP>
-nmap -sV -sC -A -T4 -p- $IP -o bounty_hunter.nmap
+nmap -sV -sC -T4 -p- $IP -o bounty_hunter.nmap
 ```
 
 This reveals that 3 ports are open - FTP, SSH and web. Quickly glancing at the web, we discover it is of no use to us. Nmap reported that FTP allows anonymous access, so we use that.

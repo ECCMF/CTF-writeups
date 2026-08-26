@@ -6,10 +6,10 @@
 > We are presented with an IP and tasks to find the user and root flags.
 
 ## Recon
-Beginning with nmap scan `nmap -A -sV -T4 -p- <TARGET_IP>`, we discover that there are 3 services running - FTP, SSH, and web page,
+Beginning with nmap scan `nmap -sV -T4 -p- <TARGET_IP>`, we discover that there are 3 services running - FTP, SSH, and web page,
 noticing that FTP allows anonymous login (anonymous:anonymous) in this case.
 ```bash
-# Nmap 7.99 scan initiated Thu Aug 13 15:40:31 2026 as: /usr/lib/nmap/nmap --privileged -A -sV -T4 -p- -o brooklyn_99.nmap 10.80.177.126
+# Nmap 7.99 scan initiated Thu Aug 13 15:40:31 2026 as: /usr/lib/nmap/nmap --privileged -sV -T4 -p- -o brooklyn_99.nmap 10.80.177.126
 Nmap scan report for 10.80.177.126
 Host is up (0.029s latency).
 Not shown: 65532 closed tcp ports (reset)
