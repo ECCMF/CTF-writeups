@@ -1,5 +1,6 @@
 # Recruit
 ---
+[TryHackme](https://tryhackme.com/room/recruitwebchallenge)
 > |medium|web|
 >
 >Recruit has just launched its new recruitment portal, allowing HR staff to manage candidate applications and administrators to oversee hiring decisions. While the platform appears functional, management suspects that security may have been overlooked during development. Your task is to assess the application like a real attacker, mapping its structure, abusing exposed functionality, and exploiting vulnerabilities.
@@ -27,7 +28,7 @@ In the *config.php* we discover HR's password and log in to the app and obtain t
 #### Remediation
 Restrict the api calls to authorized users only.
 Limit the api to fetch only from a specified folder, verify the path, use cannonicalization and allowlist to prevent path traversal.
-Do not store credentials in plaintext in accessible files.
+Do not store credentials in plaintext in accessible files, especially not during deployment.
 
 ### SQL injection
 Upon login we are redirected to the dashboard, where we can search for candidates. We try if the search field is vulnerable to SQLi using the `'` character which yields a SQL syntax error, proving that we can use SQLi.
