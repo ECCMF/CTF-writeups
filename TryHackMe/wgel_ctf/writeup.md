@@ -7,8 +7,6 @@ Firstly, we scan the target:
 `nmap -sV -sC -T4 $IP -oN wgel.nmap`
 This reveals 2 open ports - 22 and 80.
 
-Notably, ssh is version 7.2p2, which is vulnerable to username enumeration (CVE-2016-6210), though there is an easier approach.
-
 Upon inspecting the web, which shows Apache default page, we notice there is a comment meant as a message for *Jessie*, which will be important later.
 ![default page](./img/default_page.png)
 Enumerating with gobuster
