@@ -12,7 +12,7 @@ Upon inspecting the web, which shows Apache default page, we notice there is a c
 Enumerating with gobuster
 `gobuster dir -u $IP -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt`
 reveals sitemap.
-We enumerate again:
+We enumerate again as everything seems accessible through the sitemap endpoint:
 `gobuster dir -u $IP/sitemap -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt`
 This time, gobuster found *.ssh*, where is a *id_rsa* private key a public disclosure of private key caused by puttin it under the web root.
 
@@ -27,3 +27,7 @@ using this we recover the root flag:
 and on the local machine `nc -nvlp 1234`.
 ![root flag](./img/root_flag_redacted.png)
 
+## Remediation 
+Avoid placing sensitive files, credentials backups and similar files to the server document root.
+Avoid disclosing unnecessary information like usernames etc.
+Restrict sudo privileges to necessary commands only, `wget` should typically not be executable as root.

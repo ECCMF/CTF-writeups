@@ -16,21 +16,26 @@ CorpNet's internal network operations centre has been running quietly for years.
 ### nmap and gobuster
 nmap revealed ports 22 and 5050, nothing else interesting was shown.
 gobuster revealead the /internal endpoint.
-
+## Exploitation
+### SQLi
 Attempting a SQLi login  bypass on the /internal endpoint with `1234' OR 1=1 -- - ` was successful
 ![sqli_login](./img/sqli_login.png)
 and we ended up as an operator.
+#### Remediation
+Use parametrised queries/prepared statements and input sanitisation functions for all queries involving user supplied input.
+### Command injection 
 Browsing the dashboard a bit, we noticed the ping feature on the page.
 Upon closer inspection of dashboard and the tool, we noticed someone tried ping
 `127.0.0.1%0awhoami` and `%0a` is the url encoding of newline character. Hence, after decoding the newline character separates the IP and the injected command leading to the command injection.
 ![command injection PoC](./img/poc_command_injection_burp.png)
-## Exploitation
 Taking the ping request with `127.0.0.1%0awhoami` to burp repeater we tried the same and the command injection worked.
 after injecting the `ls`, we saw a file *security.config*. Reading through this file we recovered
 the sysadmin account credentials - sysadmin:<*REDACTED*>.
 ![command injection creds](./img/command_injection_creds_redacted.png)
 Recalling that ssh is open, we log in using the credentials we have just recovered and obtain the *user.txt* flag.
 ![user flag](./img/user_flag_ssh.png)
+#### Remediation
+Do not pass user-supplied commands/arguments directly to shell commands. For network diagnostics avoid invoking shell, preferably use OS APIs. If external command is unavoidable strictly validate against an allow list and use input sanitisation.
 ### Escalation to root
 Searching through the files, we noticed a keepass archive in the backups folder.
 On the remote machine, we hosted a python server `python3 -m http.server 8080` and downloaded the file locally
@@ -48,5 +53,5 @@ sudo su
 cat root.txt
 ```
 ![root flag](./img/root_flag_redacted.png)
-
-
+#### Remediation
+Use strong master password that is reasonably resistant to offline cracking (enough characters, special characters and mix with alphanumeric). Store keepass backups exclusively for the users who need them. If administrative privileges must be shared use least privilege principle and assign permissions for that account specifically.

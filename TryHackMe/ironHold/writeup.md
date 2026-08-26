@@ -58,6 +58,8 @@ Now it is time to start the machine to see the app itself and look at the actuat
 ### /actuator/env
 Here, we noticed that warden and officers passwords are redacted, but kiosk.pw is there in plaintext with username kiosk. Using this, we log in to the app without any issues. Obtaining the first flag.
 ![Alt text](img/dashboard_flag_redacted.png)
+#### Remediation
+Do not expose the actuator endpoit to unauthenticated and unauthorized users. Sensitive information (like the kiosk password) should not be included - either add *kiosk.pw* to the filter list or rename it so that the filter catches it as the other passwords.
 ### The app
 Browsing a bit we noticed there are multiple endpoints with text inputs, however checking /src/main/java/com/ironhold/controller/<endpoint_related_conrtoller.Java> revealed mostly nothing, save for account update and inmate search.
 ### Account update
@@ -82,6 +84,8 @@ public String update(@ModelAttribute Staff staff, HttpSession session) {
 ```
 Hence, exploiting this mass assignment using burp repeater we assigned ourself the warden role, which allowed us to access the admin panel, revealing another flag on the Admin panel.
 ![Alt text](./img/admin_flag_redacted.png)
+#### Remediation
+Use Data-Transfer Objects containing only fields that users are allowed to change. Avoid assigning sensitive attributes like roles, privileges etc. directly from user-supplied requests.
 ### Inmate search
 Inspecting the inmate search, we noticed that the search query is directly embedded into the SQL query, pointing to SQLi
 ```Java
@@ -109,7 +113,8 @@ Secondly, we could view the h2 [documentation](https://h2database.com/html/syste
 `' UNION SELECT 1, TABLE_NAME, GRANTEE FROM INFORMATION_SCHEMA.TABLE_PRIVILEGES -- - `
 ![Alt text](./img/sqli_information_schema.png)
 This reveleals the case file table as well and we can obtain the flag just as in the first case.
-
+#### Remediation
+Use parametrised queries/prepared statements and input sanitisation functions for all queries involving user supplied input.
 ## RCE
 Inspecting the admin controller (*controller/AdminController.Java*) file, we discovered the endpoint **/admin/settings**, which accepts bulk import/export. We tried exporting it first and observed that it is base64 encoded serialized object. Reading through the *controller/ImportExportController.Java*, we observe that the import unserializes the base64 object and reconstructs it (line 7):
 ```Java
@@ -151,3 +156,5 @@ After the curl command we should obtain the connection from our reverse shell.
 We can try some commands like whoami or id, but in the end we want to find the flag, which
 should be quite simple using the command `find / -iname "*flag*"` and reading its content gives the last flag.
 ![Alt text](./img/reverse_shell_flag_redacted.png)
+#### Remediation
+Avoid deserialization of untrusted data. Use safer formats like JSON. If serialization is necessary, use filters and allow list of classes.

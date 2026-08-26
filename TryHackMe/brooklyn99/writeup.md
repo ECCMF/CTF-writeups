@@ -46,10 +46,14 @@ Noticing that FTP contains note for Jake, we connect to the FTP using the anonym
 >From Amy,
 >Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine.
 
+#### Remediation
+Disable anonymous FTP access. Ensure sensitive information are not disclosed publicly.
 ### SSH
 Taking the hint, we run hydra using Jake's name as username:
 `hydra -l jake -P /usr/share/wordlists/rockyou.txt ssh://<TARGET_IP>`
 discovering Jake's password.
+#### Remediation
+As was mentioned in the note - use strong password and make sure it is not exposed.
 #### user 
 Next, we log in as Jake and search for the *user.txt* file which contains the first flag
 `find / -type f -name user.txt`; this command finds the file in /home/holt/ directory.
@@ -57,4 +61,7 @@ Next, we log in as Jake and search for the *user.txt* file which contains the fi
 Next, we need to read the root.txt file to which we do not have permissions.
 Using command `sudo -l` we discover that Jake can use `less` to read files as root. Hence,
 running `sudo /usr/bin/less /root/root.txt` yields the root flag. Note that we could also obtain root shell through this, but we only neede to read the flag.
+#### Remediation
+Use least privilege principle. The utility `less` should not need to be run with the root privilege.
+
 
