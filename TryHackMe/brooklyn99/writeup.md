@@ -6,10 +6,10 @@
 > We are presented with an IP and tasks to find the user and root flags.
 
 ## Recon
-Beginning with nmap scan `nmap -sV -T4 -p- <TARGET_IP>`, we discover that there are 3 services running - FTP, SSH, and web page,
+Beginning with nmap scan `nmap -sV -sC -T4 -p- <TARGET_IP>`, we discover that there are 3 services running - FTP, SSH, and web page,
 noticing that FTP allows anonymous login (anonymous:anonymous) in this case.
 ```bash
-# Nmap 7.99 scan initiated Thu Aug 13 15:40:31 2026 as: /usr/lib/nmap/nmap --privileged -sV -T4 -p- -o brooklyn_99.nmap 10.80.177.126
+# Nmap 7.99 scan initiated Thu Aug 13 15:40:31 2026 as: /usr/lib/nmap/nmap --privileged -sV -sC -T4 -p- -o brooklyn_99.nmap 10.80.177.126
 Nmap scan report for 10.80.177.126
 Host is up (0.029s latency).
 Not shown: 65532 closed tcp ports (reset)
@@ -56,5 +56,5 @@ Next, we log in as Jake and search for the *user.txt* file which contains the fi
 #### root 
 Next, we need to read the root.txt file to which we do not have permissions.
 Using command `sudo -l` we discover that Jake can use `less` to read files as root. Hence,
-running `less /root/root.txt` yields the root flag.
+running `sudo /usr/bin/less /root/root.txt` yields the root flag. Note that we could also obtain root shell through this, but we only neede to read the flag.
 

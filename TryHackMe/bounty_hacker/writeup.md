@@ -9,12 +9,12 @@
 Firstly, we scan the target with nmap:
 ```bash
 IP=<TARGET_IP>
-nmap -sV -sC -T4 -p- $IP -o bounty_hunter.nmap
+nmap -sV -sC -T4 -p- $IP -oN bounty_hunter.nmap
 ```
 
 This reveals that 3 ports are open - FTP, SSH and web. Quickly glancing at the web, we discover it is of no use to us. Nmap reported that FTP allows anonymous access, so we use that.
 
-On the FTP server are 2 files, *locks.txt* and *note.txt*, downloading both, we discover who wrote the note as it is signed.
+On the FTP server are 2 files, *locks.txt* and *task.txt*, downloading both, we discover who wrote the note as it is signed.
 
 ## Access
 The file *locks.txt* looks quite like a list of passwords, so we try to access ssh with lin's username using hydra:
@@ -29,5 +29,6 @@ checking with `sudo -l` we notice that lin can run `tar` as root. After some sea
 ```bash
 sudo /bin/tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 ```
+Here, `sudo` executes `tar` as root, and GNU's checkpoint action executes an arbitrary command with the same privileges.
 which gives us the root privileges, can be verified with `id`.
 Now, we just simply read the file `cat /root/root.txt` solving the challenge.
